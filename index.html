@@ -9,15 +9,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Almarai:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --dark: #1a1a1a;
-    --bg: #fafafa;
-    --card: #ffffff;
-    --text: #1a1a1a;
-    --grey: #6b6b6b;
-    --grey-light: #e5e5e5;
     --orange: #FF5F1F;
-    --orange-soft: #FFE0D0;
-    --orange-hover: #FFF3EC;
+    --orange-glow: rgba(255, 95, 31, 0.2);
+    --orange-glow-strong: rgba(255, 95, 31, 0.3);
     --font-heading: 'Libre Baskerville', Georgia, serif;
     --font-body: 'Almarai', sans-serif;
   }
@@ -25,235 +19,368 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    background: var(--bg);
-    color: var(--text);
+    background: #0a0a0a;
+    color: #ffffff;
     font-family: var(--font-body);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  /* ── Video background ── */
+  .video-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .video-bg video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+  }
+
+  .video-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0.1) 40%,
+      rgba(0, 0, 0, 0.4) 100%
+    );
   }
 
   /* ── Header ── */
   .header {
-    padding: 60px 48px 32px;
+    position: relative;
+    z-index: 10;
+    padding: 32px 48px;
     max-width: 960px;
     margin: 0 auto;
     width: 100%;
-  }
-
-  .header-top {
     display: flex;
     align-items: center;
-    gap: 16px;
-    margin-bottom: 16px;
+    justify-content: space-between;
   }
 
-  .header-top .logo {
-    height: 64px;
+  .header .logo {
+    height: 56px;
     width: auto;
-    flex-shrink: 0;
+    filter: brightness(0) invert(1);
   }
 
-  .header h1 {
+  .header .strapline {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    position: relative;
+    z-index: 10;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 48px 32px;
+  }
+
+  .hero-inner {
+    max-width: 720px;
+    text-align: center;
+  }
+
+  .hero h1 {
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 36px;
-    letter-spacing: -0.5px;
+    font-size: 52px;
     line-height: 1.15;
-    color: var(--text);
+    letter-spacing: -0.5px;
+    margin-bottom: 20px;
+    animation: text-focus-in 0.9s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
   }
 
-  .header h1 span {
+  .hero h1 .accent {
     color: var(--orange);
   }
 
-  .header .tagline {
-    font-size: 15px;
-    color: var(--grey);
-    margin-top: 8px;
+  .hero .subtitle {
+    font-size: 17px;
+    color: rgba(255, 255, 255, 0.7);
     line-height: 1.6;
-    max-width: 640px;
+    margin-bottom: 48px;
   }
 
-  /* ── Projects grid ── */
+  /* ── Project cards ── */
   .projects {
+    position: relative;
+    z-index: 10;
     max-width: 960px;
     margin: 0 auto;
-    padding: 16px 48px 64px;
+    padding: 0 48px 64px;
     width: 100%;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 16px;
   }
 
   .project-card {
-    background: var(--card);
-    border: 1px solid var(--grey-light);
-    border-radius: 16px;
-    padding: 32px;
-    text-decoration: none;
-    color: var(--text);
-    transition: border-color 0.2s, box-shadow 0.2s;
     display: flex;
-    flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    gap: 24px;
+    padding: 28px 32px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    text-decoration: none;
+    color: #ffffff;
+    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
   }
 
   .project-card:hover {
     border-color: var(--orange);
-    box-shadow: 0 4px 24px rgba(255, 95, 31, 0.08);
+    box-shadow: 0 0 24px var(--orange-glow);
+    transform: translateY(-2px);
   }
 
-  .project-card .card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
+  .card-content {
+    flex: 1;
+    min-width: 0;
   }
 
-  .project-card h2 {
+  .card-content h2 {
     font-family: var(--font-heading);
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
     line-height: 1.3;
+    margin-bottom: 6px;
   }
 
-  .project-card .badge {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 4px 10px;
-    border-radius: 6px;
-    white-space: nowrap;
+  .card-content p {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.5;
+  }
+
+  .card-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
     flex-shrink: 0;
   }
 
+  .badge {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+
   .badge-interactive {
-    background: var(--orange-soft);
+    background: rgba(255, 95, 31, 0.2);
     color: var(--orange);
+    border: 1px solid rgba(255, 95, 31, 0.3);
   }
 
   .badge-framework {
-    background: #e0eee5;
-    color: #3a7a52;
+    background: rgba(90, 154, 110, 0.15);
+    color: #7ac492;
+    border: 1px solid rgba(90, 154, 110, 0.25);
   }
 
-  .project-card p {
-    font-size: 14px;
-    color: var(--grey);
-    line-height: 1.6;
-  }
-
-  .project-card .card-link {
-    font-size: 13px;
+  .card-arrow {
+    font-size: 18px;
     color: var(--orange);
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 4px;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 0.3s, transform 0.3s;
   }
 
-  .project-card .card-link .arrow {
-    transition: transform 0.2s;
-  }
-
-  .project-card:hover .card-link .arrow {
-    transform: translateX(4px);
+  .project-card:hover .card-arrow {
+    opacity: 1;
+    transform: translateX(0);
   }
 
   /* ── Footer ── */
   .footer {
-    margin-top: auto;
-    padding: 32px 48px;
+    position: relative;
+    z-index: 10;
+    padding: 24px 48px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .footer .logo-small {
+    height: 20px;
+    width: auto;
+    opacity: 0.3;
+    filter: brightness(0) invert(1);
+  }
+
+  .footer p {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.35);
     text-align: center;
-    font-size: 13px;
-    color: var(--grey);
-    border-top: 1px solid var(--grey-light);
   }
 
   .footer a {
-    color: var(--orange);
+    color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
   }
 
   .footer a:hover {
-    text-decoration: underline;
+    color: var(--orange);
   }
+
+  /* ── Animation ── */
+  @keyframes text-focus-in {
+    0%   { filter: blur(12px); opacity: 0; }
+    100% { filter: blur(0);    opacity: 1; }
+  }
+
+  @keyframes fade-up {
+    0%   { opacity: 0; transform: translateY(16px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up {
+    animation: fade-up 0.6s ease-out both;
+  }
+
+  .fade-up-1 { animation-delay: 0.15s; }
+  .fade-up-2 { animation-delay: 0.3s; }
+  .fade-up-3 { animation-delay: 0.45s; }
+  .fade-up-4 { animation-delay: 0.6s; }
 
   /* ── Responsive ── */
   @media (max-width: 640px) {
     .header {
-      padding: 40px 24px 24px;
+      padding: 24px;
     }
-    .header h1 {
-      font-size: 28px;
+    .header .logo {
+      height: 40px;
     }
-    .header-top .logo {
-      height: 48px;
+    .header .strapline {
+      display: none;
+    }
+    .hero {
+      padding: 32px 24px 24px;
+    }
+    .hero h1 {
+      font-size: 34px;
+    }
+    .hero .subtitle {
+      font-size: 15px;
+      margin-bottom: 32px;
     }
     .projects {
-      padding: 16px 24px 48px;
+      padding: 0 24px 48px;
     }
     .project-card {
+      flex-direction: column;
+      align-items: flex-start;
       padding: 24px;
+      gap: 12px;
+    }
+    .card-meta {
+      flex-direction: row;
+      align-items: center;
+      width: 100%;
+      justify-content: space-between;
+    }
+    .card-arrow {
+      opacity: 1;
+      transform: translateX(0);
     }
     .footer {
-      padding: 24px;
+      padding: 20px 24px;
     }
   }
 </style>
 </head>
 <body>
 
+  <!-- Video background -->
+  <div class="video-bg">
+    <video autoplay muted playsinline loop>
+      <source src="hero-bg.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <!-- Header -->
   <header class="header">
-    <div class="header-top">
-      <img src="aieutics_logo.svg" alt="Aieutics" class="logo">
-      <h1>Aieutics <span>Tools</span></h1>
-    </div>
-    <p class="tagline">Open-source strategy and diagnostic tools for startups, corporates, and innovation teams. Built by <a href="https://www.aieutics.com" style="color: var(--orange); text-decoration: none;">Aieutics</a>.</p>
+    <img src="aieutics_logo.svg" alt="Aieutics" class="logo">
+    <span class="strapline">See further. Think deeper. Break through.</span>
   </header>
 
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Strategy &amp; Innovation<br><span class="accent">Tools</span></h1>
+      <p class="subtitle fade-up fade-up-1">
+        Open-source frameworks and diagnostics for founders, innovation teams, and accelerator programmes.
+      </p>
+    </div>
+  </section>
+
+  <!-- Projects -->
   <main class="projects">
 
-    <a href="https://diagnostic.aieutics.com" class="project-card" target="_blank" rel="noopener">
-      <div class="card-header">
+    <a href="https://diagnostic.aieutics.com" class="project-card fade-up fade-up-2" target="_blank" rel="noopener">
+      <div class="card-content">
         <h2>POC Lifecycle Diagnostic</h2>
+        <p>18 binary questions across 5 dimensions. Assess where your proof-of-concept stands and identify what's at risk before it costs you.</p>
+      </div>
+      <div class="card-meta">
         <span class="badge badge-interactive">Interactive Tool</span>
-      </div>
-      <p>Assess where your proof-of-concept stands across seven lifecycle stages. Identify gaps, prioritise actions, and build a path from validation to scale.</p>
-      <div class="card-link">
-        diagnostic.aieutics.com <span class="arrow">&rarr;</span>
+        <span class="card-arrow">&rarr;</span>
       </div>
     </a>
 
-    <a href="https://aieutics-com.github.io/critical-path-startups/" class="project-card">
-      <div class="card-header">
+    <a href="https://aieutics-com.github.io/critical-path-startups/" class="project-card fade-up fade-up-3">
+      <div class="card-content">
         <h2>Critical Path Layers &mdash; Startups</h2>
-        <span class="badge badge-framework">Framework</span>
+        <p>Seven layered dependencies that determine whether a startup moves from idea to sustainable growth. A sequenced diagnostic for founders and coaches.</p>
       </div>
-      <p>A layered diagnostic framework mapping the seven critical dependencies that determine whether a startup can move from idea to sustainable growth.</p>
-      <div class="card-link">
-        View framework <span class="arrow">&rarr;</span>
+      <div class="card-meta">
+        <span class="badge badge-framework">Framework</span>
+        <span class="card-arrow">&rarr;</span>
       </div>
     </a>
 
-    <a href="https://aieutics-com.github.io/critical-path-corporate/" class="project-card">
-      <div class="card-header">
+    <a href="https://aieutics-com.github.io/critical-path-corporate/" class="project-card fade-up fade-up-4">
+      <div class="card-content">
         <h2>Critical Path Layers &mdash; Corporates</h2>
-        <span class="badge badge-framework">Framework</span>
+        <p>The corporate variant, adapted for innovation teams navigating governance, internal dependencies, and scaling within large organisations.</p>
       </div>
-      <p>The corporate variant of the Critical Path Layers framework, adapted for innovation teams navigating internal dependencies, governance, and scaling within large organisations.</p>
-      <div class="card-link">
-        View framework <span class="arrow">&rarr;</span>
+      <div class="card-meta">
+        <span class="badge badge-framework">Framework</span>
+        <span class="card-arrow">&rarr;</span>
       </div>
     </a>
 
   </main>
 
+  <!-- Footer -->
   <footer class="footer">
-    &copy; 2026 <a href="https://www.aieutics.com">Aieutics</a> &middot; Strategy, Transformation & Innovation
+    <img src="aieutics_logo.svg" alt="Aieutics" class="logo-small">
+    <p>Built by <a href="https://www.aieutics.com">Aieutics</a> from patterns observed across executive coaching, corporate accelerator programmes, and consulting engagements.</p>
   </footer>
 
 </body>
