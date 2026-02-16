@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aieutics — Strategy, Transformation & Innovation Tools</title>
+<meta name="description" content="Open-source strategy and diagnostic tools by Aieutics. Critical Path Layers frameworks and POC Lifecycle Diagnostic for startups, corporates, and innovation teams.">
+<link rel="icon" type="image/svg+xml" href="aieutics_logo.svg">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Almarai:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark: #1a1a1a;
+    --bg: #fafafa;
+    --card: #ffffff;
+    --text: #1a1a1a;
+    --grey: #6b6b6b;
+    --grey-light: #e5e5e5;
+    --orange: #FF5F1F;
+    --orange-soft: #FFE0D0;
+    --orange-hover: #FFF3EC;
+    --font-heading: 'Libre Baskerville', Georgia, serif;
+    --font-body: 'Almarai', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Header ── */
+  .header {
+    padding: 60px 48px 32px;
+    max-width: 960px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .header-top .logo {
+    height: 64px;
+    width: auto;
+    flex-shrink: 0;
+  }
+
+  .header h1 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 36px;
+    letter-spacing: -0.5px;
+    line-height: 1.15;
+    color: var(--text);
+  }
+
+  .header h1 span {
+    color: var(--orange);
+  }
+
+  .header .tagline {
+    font-size: 15px;
+    color: var(--grey);
+    margin-top: 8px;
+    line-height: 1.6;
+    max-width: 640px;
+  }
+
+  /* ── Projects grid ── */
+  .projects {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 16px 48px 64px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--grey-light);
+    border-radius: 16px;
+    padding: 32px;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .project-card:hover {
+    border-color: var(--orange);
+    box-shadow: 0 4px 24px rgba(255, 95, 31, 0.08);
+  }
+
+  .project-card .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .project-card h2 {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .project-card .badge {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .badge-interactive {
+    background: var(--orange-soft);
+    color: var(--orange);
+  }
+
+  .badge-framework {
+    background: #e0eee5;
+    color: #3a7a52;
+  }
+
+  .project-card p {
+    font-size: 14px;
+    color: var(--grey);
+    line-height: 1.6;
+  }
+
+  .project-card .card-link {
+    font-size: 13px;
+    color: var(--orange);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .project-card .card-link .arrow {
+    transition: transform 0.2s;
+  }
+
+  .project-card:hover .card-link .arrow {
+    transform: translateX(4px);
+  }
+
+  /* ── Footer ── */
+  .footer {
+    margin-top: auto;
+    padding: 32px 48px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--grey);
+    border-top: 1px solid var(--grey-light);
+  }
+
+  .footer a {
+    color: var(--orange);
+    text-decoration: none;
+  }
+
+  .footer a:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .header {
+      padding: 40px 24px 24px;
+    }
+    .header h1 {
+      font-size: 28px;
+    }
+    .header-top .logo {
+      height: 48px;
+    }
+    .projects {
+      padding: 16px 24px 48px;
+    }
+    .project-card {
+      padding: 24px;
+    }
+    .footer {
+      padding: 24px;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-top">
+      <img src="aieutics_logo.svg" alt="Aieutics" class="logo">
+      <h1>Aieutics <span>Tools</span></h1>
+    </div>
+    <p class="tagline">Open-source strategy and diagnostic tools for startups, corporates, and innovation teams. Built by <a href="https://www.aieutics.com" style="color: var(--orange); text-decoration: none;">Aieutics</a>.</p>
+  </header>
+
+  <main class="projects">
+
+    <a href="https://diagnostic.aieutics.com" class="project-card" target="_blank" rel="noopener">
+      <div class="card-header">
+        <h2>POC Lifecycle Diagnostic</h2>
+        <span class="badge badge-interactive">Interactive Tool</span>
+      </div>
+      <p>Assess where your proof-of-concept stands across seven lifecycle stages. Identify gaps, prioritise actions, and build a path from validation to scale.</p>
+      <div class="card-link">
+        diagnostic.aieutics.com <span class="arrow">&rarr;</span>
+      </div>
+    </a>
+
+    <a href="https://aieutics-com.github.io/critical-path-startups/" class="project-card">
+      <div class="card-header">
+        <h2>Critical Path Layers &mdash; Startups</h2>
+        <span class="badge badge-framework">Framework</span>
+      </div>
+      <p>A layered diagnostic framework mapping the seven critical dependencies that determine whether a startup can move from idea to sustainable growth.</p>
+      <div class="card-link">
+        View framework <span class="arrow">&rarr;</span>
+      </div>
+    </a>
+
+    <a href="https://aieutics-com.github.io/critical-path-corporate/" class="project-card">
+      <div class="card-header">
+        <h2>Critical Path Layers &mdash; Corporates</h2>
+        <span class="badge badge-framework">Framework</span>
+      </div>
+      <p>The corporate variant of the Critical Path Layers framework, adapted for innovation teams navigating internal dependencies, governance, and scaling within large organisations.</p>
+      <div class="card-link">
+        View framework <span class="arrow">&rarr;</span>
+      </div>
+    </a>
+
+  </main>
+
+  <footer class="footer">
+    &copy; 2026 <a href="https://www.aieutics.com">Aieutics</a> &middot; Strategy, Transformation & Innovation
+  </footer>
+
+</body>
+</html>
