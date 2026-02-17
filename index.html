@@ -137,18 +137,21 @@
     gap: 24px;
     padding: 28px 32px;
     border: 1px solid rgba(255, 255, 255, 0.12);
+    border-left: 3px solid transparent;
     border-radius: 16px;
     background: rgba(0, 0, 0, 0.35);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     text-decoration: none;
     color: #ffffff;
-    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    transition: border-color 0.3s, border-left-color 0.3s, box-shadow 0.3s, transform 0.3s, background 0.3s;
   }
 
   .project-card:hover {
-    border-color: var(--orange);
-    box-shadow: 0 0 24px var(--orange-glow);
+    border-color: rgba(255, 95, 31, 0.4);
+    border-left-color: var(--orange);
+    box-shadow: 0 0 30px var(--orange-glow), 0 0 60px rgba(255, 95, 31, 0.08);
+    background: rgba(255, 95, 31, 0.06);
     transform: translateY(-2px);
   }
 
