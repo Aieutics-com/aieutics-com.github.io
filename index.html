@@ -122,19 +122,20 @@
   .projects {
     position: relative;
     z-index: 10;
-    max-width: 960px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: 0 48px 64px;
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
 
   .project-card {
     display: flex;
-    align-items: center;
-    gap: 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
     padding: 28px 32px;
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-left: 3px solid transparent;
@@ -176,8 +177,10 @@
 
   .card-meta {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
     gap: 8px;
     flex-shrink: 0;
   }
@@ -202,6 +205,17 @@
     background: rgba(90, 154, 110, 0.15);
     color: #7ac492;
     border: 1px solid rgba(90, 154, 110, 0.25);
+  }
+
+  .card-framework:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+    border-left-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.06), 0 0 60px rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .card-framework .card-arrow {
+    color: rgba(255, 255, 255, 0.6);
   }
 
   .card-arrow {
@@ -298,18 +312,11 @@
     }
     .projects {
       padding: 0 24px 48px;
+      grid-template-columns: 1fr;
     }
     .project-card {
-      flex-direction: column;
-      align-items: flex-start;
       padding: 24px;
       gap: 12px;
-    }
-    .card-meta {
-      flex-direction: row;
-      align-items: center;
-      width: 100%;
-      justify-content: space-between;
     }
     .card-arrow {
       opacity: 1;
@@ -393,7 +400,7 @@
       </div>
     </a>
 
-    <a href="https://aieutics-com.github.io/critical-path-startups/" class="project-card fade-up fade-up-6">
+    <a href="https://aieutics-com.github.io/critical-path-startups/" class="project-card card-framework fade-up fade-up-6">
       <div class="card-content">
         <h2>Critical Path Layers &mdash; Startups and Scaleup Edition</h2>
         <p>Seven layered dependencies that determine whether a startup moves from idea to sustainable growth. A sequenced diagnostic for founders and their leadership.</p>
@@ -404,7 +411,7 @@
       </div>
     </a>
 
-    <a href="https://aieutics-com.github.io/critical-path-corporate/" class="project-card fade-up fade-up-7">
+    <a href="https://aieutics-com.github.io/critical-path-corporate/" class="project-card card-framework fade-up fade-up-7">
       <div class="card-content">
         <h2>Critical Path Layers &mdash; Corporate Innovation Edition</h2>
         <p>The corporate variant, adapted for corporate innovators navigating governance, internal dependencies, and scaling within large organisations.</p>
