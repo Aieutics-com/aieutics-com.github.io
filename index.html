@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aieutics — Strategy, Transformation & Innovation Tools</title>
-<meta name="description" content="Open-source strategy and diagnostic tools by Aieutics. POC Lifecycle, ICP Clarity, Pricing Coherence diagnostics, Value Proposition Articulator, plus Critical Path Layers frameworks for startups, corporates, and innovation teams.">
+<meta name="description" content="Open-source strategy and diagnostic tools by Aieutics. POC Lifecycle, Corporate Innovation, ICP Clarity, Pricing Coherence diagnostics, Value Proposition Articulator, plus Critical Path Layers frameworks for startups, corporates, and innovation teams.">
 <link rel="icon" type="image/svg+xml" href="aieutics_logo.svg">
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Almarai:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
@@ -12,6 +12,8 @@
     --orange: #FF5F1F;
     --orange-glow: rgba(255, 95, 31, 0.2);
     --orange-glow-strong: rgba(255, 95, 31, 0.3);
+    --teal: #5B9A9A;
+    --teal-glow: rgba(91, 154, 154, 0.2);
     --font-heading: 'Libre Baskerville', Georgia, serif;
     --font-body: 'Almarai', sans-serif;
   }
@@ -85,7 +87,7 @@
   .hero {
     position: relative;
     z-index: 10;
-    flex: 1;
+    flex: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -118,29 +120,196 @@
     margin-bottom: 48px;
   }
 
-  /* ── Project cards ── */
-  .projects {
+  /* ── Section labels ── */
+  .section-label {
     position: relative;
     z-index: 10;
     max-width: 1100px;
     margin: 0 auto;
-    padding: 0 48px 64px;
+    padding: 0 48px;
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  .section-label h2 {
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .section-label .label-accent {
+    color: var(--orange);
+  }
+
+  .section-label .label-accent-teal {
+    color: var(--teal);
+  }
+
+  .section-divider {
+    position: relative;
+    z-index: 10;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 48px 0;
+    width: 100%;
+  }
+
+  .section-divider hr {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  /* ── Shared card grid ── */
+  .card-grid {
+    position: relative;
+    z-index: 10;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 48px 0;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
 
+  .card-grid-bottom {
+    padding-bottom: 64px;
+  }
+
+  /* ── Flip cards (featured diagnostics) ── */
+  .flip-card {
+    perspective: 800px;
+    height: 240px;
+  }
+
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+  }
+
+  .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flip-card-front,
+  .flip-card-back {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-left: 3px solid transparent;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: flex;
+    flex-direction: column;
+    padding: 28px 32px;
+    color: #ffffff;
+    text-decoration: none;
+  }
+
+  .flip-card-front {
+    justify-content: space-between;
+    border-left-color: var(--orange);
+  }
+
+  .flip-card-back {
+    transform: rotateY(180deg);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+    border-color: rgba(255, 95, 31, 0.3);
+    border-left-color: var(--orange);
+    background: rgba(255, 95, 31, 0.06);
+    box-shadow: 0 0 30px var(--orange-glow), 0 0 60px rgba(255, 95, 31, 0.08);
+  }
+
+  .flip-card-front .card-content h2 {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+
+  .flip-card-front .card-content p {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.5;
+  }
+
+  .flip-card-front .card-meta {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .flip-hint {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.3);
+    font-style: italic;
+  }
+
+  .flip-card-back .back-audience {
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--orange);
+  }
+
+  .flip-card-back .back-description {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.6;
+    max-width: 380px;
+  }
+
+  .flip-card-back .back-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    border-radius: 8px;
+    background: var(--orange);
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .flip-card-back .back-cta:hover {
+    background: #e8531a;
+    transform: scale(1.03);
+  }
+
+  /* ── Standard project cards (beta tools) ── */
   .project-card {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
     padding: 28px 32px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-left: 3px solid transparent;
     border-radius: 16px;
-    background: rgba(0, 0, 0, 0.35);
+    background: rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     text-decoration: none;
@@ -149,10 +318,10 @@
   }
 
   .project-card:hover {
-    border-color: rgba(255, 95, 31, 0.4);
-    border-left-color: var(--orange);
-    box-shadow: 0 0 30px var(--orange-glow), 0 0 60px rgba(255, 95, 31, 0.08);
-    background: rgba(255, 95, 31, 0.06);
+    border-color: rgba(91, 154, 154, 0.35);
+    border-left-color: var(--teal);
+    box-shadow: 0 0 30px var(--teal-glow), 0 0 60px rgba(91, 154, 154, 0.08);
+    background: rgba(91, 154, 154, 0.04);
     transform: translateY(-2px);
   }
 
@@ -195,32 +364,27 @@
     white-space: nowrap;
   }
 
-  .badge-interactive {
+  .badge-diagnostic {
     background: rgba(255, 95, 31, 0.2);
     color: var(--orange);
     border: 1px solid rgba(255, 95, 31, 0.3);
   }
 
+  .badge-beta {
+    background: rgba(91, 154, 154, 0.15);
+    color: var(--teal);
+    border: 1px solid rgba(91, 154, 154, 0.25);
+  }
+
   .badge-framework {
-    background: rgba(90, 154, 110, 0.15);
-    color: #7ac492;
-    border: 1px solid rgba(90, 154, 110, 0.25);
-  }
-
-  .card-framework:hover {
-    border-color: rgba(255, 255, 255, 0.25);
-    border-left-color: rgba(255, 255, 255, 0.6);
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.06), 0 0 60px rgba(255, 255, 255, 0.03);
-    background: rgba(255, 255, 255, 0.04);
-  }
-
-  .card-framework .card-arrow {
-    color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.15);
   }
 
   .card-arrow {
     font-size: 18px;
-    color: var(--orange);
+    color: var(--teal);
     opacity: 0;
     transform: translateX(-8px);
     transition: opacity 0.3s, transform 0.3s;
@@ -229,6 +393,28 @@
   .project-card:hover .card-arrow {
     opacity: 1;
     transform: translateX(0);
+  }
+
+  /* ── Framework cards ── */
+  .card-framework:hover {
+    border-color: var(--orange);
+    border-left-color: var(--orange);
+    box-shadow: 0 0 30px var(--orange-glow), 0 0 60px rgba(255, 95, 31, 0.08);
+    background: var(--orange);
+    color: #ffffff;
+  }
+
+  .card-framework:hover .card-content h2,
+  .card-framework:hover .card-content p {
+    color: #ffffff;
+  }
+
+  .card-framework .card-arrow {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .card-framework:hover .card-arrow {
+    color: #ffffff;
   }
 
   /* ── Footer ── */
@@ -288,6 +474,8 @@
   .fade-up-6 { animation-delay: 0.9s; }
   .fade-up-7 { animation-delay: 1.05s; }
   .fade-up-8 { animation-delay: 1.2s; }
+  .fade-up-9 { animation-delay: 1.35s; }
+  .fade-up-10 { animation-delay: 1.5s; }
 
   /* ── Responsive ── */
   @media (max-width: 640px) {
@@ -310,9 +498,24 @@
       font-size: 15px;
       margin-bottom: 32px;
     }
-    .projects {
-      padding: 0 24px 48px;
+    .card-grid {
+      padding-left: 24px;
+      padding-right: 24px;
       grid-template-columns: 1fr;
+    }
+    .section-label {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+    .section-divider {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+    .flip-card {
+      height: 220px;
+    }
+    .flip-card-front .card-content h2 {
+      font-size: 18px;
     }
     .project-card {
       padding: 24px;
@@ -324,6 +527,19 @@
     }
     .footer {
       padding: 20px 24px;
+    }
+    /* On mobile, tap to flip */
+    .flip-hint {
+      display: none;
+    }
+    .flip-hint-mobile {
+      display: block;
+    }
+  }
+
+  @media (min-width: 641px) {
+    .flip-hint-mobile {
+      display: none;
     }
   }
 </style>
@@ -353,54 +569,119 @@
     </div>
   </section>
 
-  <!-- Projects -->
-  <main class="projects">
+  <!-- ═══════════════════════════════════════ -->
+  <!-- TIER 1: Featured Diagnostics (flip)    -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section-label fade-up fade-up-2">
+    <h2><span class="label-accent">Diagnostics</span></h2>
+  </div>
 
-    <a href="https://resources.aieutics.com/icp-clarity-diagnostic/" class="project-card fade-up fade-up-2">
+  <div class="card-grid" style="padding-bottom: 0;">
+
+    <!-- Corporate Innovation Diagnostic -->
+    <div class="flip-card fade-up fade-up-3" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="card-content">
+            <h2>Corporate Innovation Diagnostic</h2>
+            <p>18 binary questions across 5 dimensions. Identify where your innovation initiative is structurally at risk &mdash; before it stalls.</p>
+          </div>
+          <div class="card-meta">
+            <span class="badge badge-diagnostic">Diagnostic</span>
+            <span class="flip-hint">Hover to learn more</span>
+            <span class="flip-hint flip-hint-mobile">Tap to learn more</span>
+          </div>
+        </div>
+        <div class="flip-card-back">
+          <span class="back-audience">For Corporate Innovators &amp; Transformation Teams</span>
+          <p class="back-description">Built for leaders running innovation initiatives inside large organisations. Surfaces structural risks &mdash; stakeholder alignment, organisational feasibility, adoption pathways &mdash; that determine whether a pilot becomes permanent.</p>
+          <a href="https://corporatepoc.aieutics.com" class="back-cta" target="_blank" rel="noopener">Start the Diagnostic &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- POC Lifecycle Diagnostic -->
+    <div class="flip-card fade-up fade-up-4" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div class="card-content">
+            <h2>POC Lifecycle Diagnostic</h2>
+            <p>18 binary questions across 5 dimensions. Assess where your proof-of-concept stands and identify what's at risk before it costs you.</p>
+          </div>
+          <div class="card-meta">
+            <span class="badge badge-diagnostic">Diagnostic</span>
+            <span class="flip-hint">Hover to learn more</span>
+            <span class="flip-hint flip-hint-mobile">Tap to learn more</span>
+          </div>
+        </div>
+        <div class="flip-card-back">
+          <span class="back-audience">For Startup &amp; Scaleup Founders</span>
+          <p class="back-description">Built for founders validating product-market fit through a proof of concept. Tests whether your POC has the problem clarity, buyer validation, and commercial readiness to convert into a real deal.</p>
+          <a href="https://diagnostic.aieutics.com" class="back-cta" target="_blank" rel="noopener">Start the Diagnostic &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- TIER 2: Beta Tools (teal accent)       -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section-divider"><hr></div>
+
+  <div class="section-label fade-up fade-up-5" style="margin-top: 24px;">
+    <h2><span class="label-accent-teal">Interactive Tools</span> &mdash; Beta</h2>
+  </div>
+
+  <div class="card-grid" style="padding-bottom: 0;">
+
+    <a href="https://resources.aieutics.com/icp-clarity-diagnostic/" class="project-card fade-up fade-up-6">
       <div class="card-content">
         <h2>ICP Clarity Diagnostic</h2>
         <p>18 binary questions across 5 dimensions. Test whether your buyer profile is specific enough to sell, validated enough to trust, and connected enough to convert.</p>
       </div>
       <div class="card-meta">
-        <span class="badge badge-interactive">Interactive Tool</span>
+        <span class="badge badge-beta">Beta</span>
         <span class="card-arrow">&rarr;</span>
       </div>
     </a>
 
-    <a href="https://resources.aieutics.com/value-proposition-articulator/" class="project-card fade-up fade-up-3">
+    <a href="https://resources.aieutics.com/value-proposition-articulator/" class="project-card fade-up fade-up-7">
       <div class="card-content">
         <h2>Value Proposition Articulator</h2>
         <p>20 binary questions across 5 dimensions. Test whether your value proposition is clear enough to repeat, differentiated enough to win, and aligned to the value type your buyer decides on.</p>
       </div>
       <div class="card-meta">
-        <span class="badge badge-interactive">Interactive Tool</span>
+        <span class="badge badge-beta">Beta</span>
         <span class="card-arrow">&rarr;</span>
       </div>
     </a>
 
-    <a href="https://resources.aieutics.com/pricing-coherence-diagnostic/" class="project-card fade-up fade-up-4">
+    <a href="https://resources.aieutics.com/pricing-coherence-diagnostic/" class="project-card fade-up fade-up-8">
       <div class="card-content">
         <h2>Pricing Coherence Diagnostic</h2>
         <p>18 binary questions across 5 dimensions. Assess whether your pricing is grounded in buyer reality &mdash; willingness to pay, model fit, budget alignment, and unit economics.</p>
       </div>
       <div class="card-meta">
-        <span class="badge badge-interactive">Interactive Tool</span>
+        <span class="badge badge-beta">Beta</span>
         <span class="card-arrow">&rarr;</span>
       </div>
     </a>
 
-    <a href="https://diagnostic.aieutics.com" class="project-card fade-up fade-up-5" target="_blank" rel="noopener">
-      <div class="card-content">
-        <h2>POC Lifecycle Diagnostic</h2>
-        <p>18 binary questions across 5 dimensions. Assess where your proof-of-concept stands and identify what's at risk before it costs you.</p>
-      </div>
-      <div class="card-meta">
-        <span class="badge badge-interactive">Interactive Tool</span>
-        <span class="card-arrow">&rarr;</span>
-      </div>
-    </a>
+  </div>
 
-    <a href="https://aieutics-com.github.io/critical-path-startups/" class="project-card card-framework fade-up fade-up-6">
+  <!-- ═══════════════════════════════════════ -->
+  <!-- TIER 3: Frameworks (as-is)             -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section-divider"><hr></div>
+
+  <div class="section-label fade-up fade-up-9" style="margin-top: 24px;">
+    <h2>Frameworks</h2>
+  </div>
+
+  <div class="card-grid card-grid-bottom">
+
+    <a href="https://aieutics-com.github.io/critical-path-startups/" class="project-card card-framework fade-up fade-up-9">
       <div class="card-content">
         <h2>Critical Path Layers &mdash; Startups and Scaleup Edition</h2>
         <p>Seven layered dependencies that determine whether a startup moves from idea to sustainable growth. A sequenced diagnostic for founders and their leadership.</p>
@@ -411,7 +692,7 @@
       </div>
     </a>
 
-    <a href="https://aieutics-com.github.io/critical-path-corporate/" class="project-card card-framework fade-up fade-up-7">
+    <a href="https://aieutics-com.github.io/critical-path-corporate/" class="project-card card-framework fade-up fade-up-10">
       <div class="card-content">
         <h2>Critical Path Layers &mdash; Corporate Innovation Edition</h2>
         <p>The corporate variant, adapted for corporate innovators navigating governance, internal dependencies, and scaling within large organisations.</p>
@@ -422,13 +703,26 @@
       </div>
     </a>
 
-  </main>
+  </div>
 
   <!-- Footer -->
   <footer class="footer">
     <img src="aieutics_logo.svg" alt="Aieutics" class="logo-small">
     <p>Built by <a href="https://www.aieutics.com">Aieutics</a> from patterns observed across executive coaching, startup &amp; scaleup acceleration programmes, and consulting engagements. These tools are starting points. If your results raise questions, <a href="https://www.aieutics.com">let's talk</a>.</p>
   </footer>
+
+  <script>
+    // Mobile tap-to-flip support
+    // The onclick on each .flip-card toggles a 'flipped' class.
+    // Add CSS to handle the flipped state for touch devices.
+    const style = document.createElement('style');
+    style.textContent = `
+      .flip-card.flipped .flip-card-inner {
+        transform: rotateY(180deg);
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
 
 </body>
 </html>
