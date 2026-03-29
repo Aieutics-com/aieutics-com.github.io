@@ -382,6 +382,32 @@
     border: 1px solid rgba(255, 255, 255, 0.15);
   }
 
+  .badge-visualisation {
+    background: rgba(255, 95, 31, 0.1);
+    color: rgba(255, 95, 31, 0.8);
+    border: 1px solid rgba(255, 95, 31, 0.2);
+  }
+
+  .card-visualisation:hover {
+    border-color: rgba(255, 95, 31, 0.4);
+    box-shadow: 0 8px 32px rgba(255, 95, 31, 0.12);
+    transform: translateY(-2px);
+  }
+
+  .card-visualisation:hover .card-content h2,
+  .card-visualisation:hover .card-content p {
+    color: #ffffff;
+  }
+
+  .card-visualisation .card-arrow {
+    color: rgba(255, 95, 31, 0.4);
+  }
+
+  .card-visualisation:hover .card-arrow {
+    color: var(--orange);
+    transform: translateX(4px);
+  }
+
   .card-arrow {
     font-size: 18px;
     color: var(--teal);
@@ -760,6 +786,30 @@
       </div>
       <div class="card-meta">
         <span class="badge badge-framework">Framework</span>
+        <span class="card-arrow">&rarr;</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- TIER 4: Visualisations                -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section-divider"><hr></div>
+
+  <div class="section-label fade-up fade-up-13" style="margin-top: 24px;">
+    <h2>Visualisations</h2>
+  </div>
+
+  <div class="card-grid card-grid-bottom">
+
+    <a href="https://resources.aieutics.com/hormuz-cascade/" class="project-card card-visualisation fade-up fade-up-14">
+      <div class="card-content">
+        <h2>The Hormuz Cascade</h2>
+        <p>How a $126 per barrel oil spike reshapes the global economy through eight compounding transmission channels. An interactive network map of the macroeconomic ramifications of the February 2026 conflict.</p>
+      </div>
+      <div class="card-meta">
+        <span class="badge badge-visualisation">Visualisation</span>
         <span class="card-arrow">&rarr;</span>
       </div>
     </a>
