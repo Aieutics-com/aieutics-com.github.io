@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Critical Path Layers — Aieutics</title>
+<meta name="description" content="A strategy framework for decisions taken under speed and uncertainty. Five sequenced acts of diagnostic work, each with a gate.">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Almarai:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark: #1a1a1a;
+    --bg: #fafafa;
+    --card: #ffffff;
+    --text: #1a1a1a;
+    --grey: #6b6b6b;
+    --grey-light: #e5e5e5;
+    --grey-muted: #6b6b6b;
+    --orange: #FF5F1F;
+    --orange-soft: #FFE0D0;
+    --orange-hover: #FFF3EC;
+    --font-heading: 'Libre Baskerville', 'Lora', Georgia, serif;
+    --font-body: 'Almarai', 'Lora', Georgia, serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  .header { padding: 48px 60px 24px; max-width: 1800px; }
+  .header h1 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 42px;
+    letter-spacing: -0.5px;
+    line-height: 1.15;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .header h1 a { display: inline-flex; }
+  .header h1 .logo { height: 1.5em; width: auto; vertical-align: middle; flex-shrink: 0; }
+  .header h1 span { color: var(--orange); }
+  .header .subtitle {
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: var(--grey);
+    margin-top: 8px;
+    font-style: italic;
+  }
+  .header .desc {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--grey-muted);
+    margin-top: 16px;
+    max-width: 800px;
+    line-height: 1.6;
+  }
+  .header .cta-link {
+    display: inline-block;
+    margin-top: 14px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--orange);
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: color 0.2s;
+  }
+  .header .cta-link:hover { color: var(--text); }
+  .header .cta-link .arrow { display: inline-block; margin-left: 6px; transition: transform 0.2s; }
+  .header .cta-link:hover .arrow { transform: translateX(4px); }
+
+  /* ── Pathway container ── */
+  .pathway-wrap { padding: 20px 60px 0; overflow-x: hidden; }
+  .pathway {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    position: relative;
+    width: 100%;
+  }
+
+  /* ── Layer card (collapsed default) ── */
+  .layer {
+    flex: 0 0 60px;
+    min-width: 60px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: flex 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                min-width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+  }
+  .layer.expanded { flex: 1 1 auto; min-width: 0; cursor: default; }
+
+  .layer-inner {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--grey-light);
+    position: relative;
+    transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    overflow: hidden;
+  }
+
+  /* ── Expanded card active indicator ── */
+  .layer.expanded .layer-inner {
+    background: var(--orange);
+    border-color: var(--orange);
+    box-shadow: 0 4px 24px rgba(255, 95, 31, 0.25);
+  }
+  .layer.expanded .layer-number { color: rgba(255, 255, 255, 0.7); }
+  .layer.expanded .layer-title { color: #ffffff; }
+  .layer.expanded .layer-mantra { color: rgba(255, 255, 255, 0.85); }
+  .layer.expanded .produces-label { color: rgba(255, 255, 255, 0.7); }
+  .layer.expanded .produces-list li { color: rgba(255, 255, 255, 0.95); }
+  .layer.expanded .produces-list li::before { color: rgba(255, 255, 255, 0.6); }
+  .layer.expanded .instruments-label { color: rgba(255, 255, 255, 0.8); }
+  .layer.expanded .gate-section { background: #f0f0f0; margin: 0 -28px -24px; padding: 20px 28px 24px; border-top: none; }
+  .layer.expanded .gate-section-header { color: var(--orange); }
+  .layer.expanded .gate-section-icon { border-color: var(--orange); }
+  .layer.expanded .gate-section-icon svg { fill: var(--orange); }
+  .layer.expanded .gate-body { color: var(--grey); }
+
+  /* ── Hover on collapsed cards ── */
+  .layer:not(.expanded) .layer-inner:hover {
+    border-color: var(--orange);
+    box-shadow: 0 4px 16px rgba(255, 95, 31, 0.15);
+    background: var(--orange-hover);
+  }
+  .layer:not(.expanded) .layer-inner:hover .collapsed-number,
+  .layer:not(.expanded) .layer-inner:hover .collapsed-title { color: var(--orange); }
+
+  /* ── Collapsed label ── */
+  .layer-collapsed-label {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 8px;
+    height: 100%;
+    text-align: center;
+    gap: 16px;
+  }
+  .layer:not(.expanded) .layer-collapsed-label { display: flex; }
+  .collapsed-number {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--orange);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+  .collapsed-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    white-space: nowrap;
+  }
+
+  /* ── Expanded content ── */
+  .layer-expanded-content {
+    display: none;
+    flex-direction: column;
+    padding: 28px 28px 24px;
+  }
+  .layer.expanded .layer-expanded-content { display: flex; }
+
+  .layer-number {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 4px;
+  }
+  .layer-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--text);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+  .layer-mantra {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--grey-muted);
+    font-style: italic;
+    margin-bottom: 18px;
+    line-height: 1.4;
+  }
+
+  /* ── Produces block (replaces "themes") ── */
+  .produces { margin-bottom: 16px; }
+  .produces-label {
+    font-family: var(--font-heading);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--grey-muted);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .produces-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .produces-list li {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.4;
+    padding-left: 16px;
+    position: relative;
+  }
+  .produces-list li::before {
+    content: '·';
+    position: absolute;
+    left: 4px;
+    color: var(--orange);
+    font-weight: 700;
+  }
+
+  /* ── Instruments (L3 only) ── */
+  .instruments-block { margin-top: 8px; margin-bottom: 18px; }
+  .instruments-label {
+    font-family: var(--font-heading);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--grey-muted);
+    margin-bottom: 10px;
+    display: block;
+  }
+  .instruments-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .instrument-chip {
+    font-family: var(--font-body);
+    font-size: 12px;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    color: #fff;
+    border-radius: 14px;
+    padding: 4px 12px;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s;
+    white-space: nowrap;
+  }
+  .instrument-chip:hover { background: rgba(255, 255, 255, 0.32); border-color: rgba(255, 255, 255, 0.6); }
+  .instrument-chip.coming-soon {
+    opacity: 0.6;
+    cursor: not-allowed;
+    font-style: italic;
+  }
+  .instrument-chip.coming-soon:hover { background: rgba(255, 255, 255, 0.18); border-color: rgba(255, 255, 255, 0.32); }
+
+  /* ── L5 rotation panel ── */
+  .rotation-panel {
+    background: var(--dark);
+    color: #fff;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 18px;
+    border-left: 4px solid #fff;
+  }
+  .rotation-panel-header {
+    font-family: var(--font-heading);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .rotation-panel-header .loop-icon {
+    display: inline-block;
+    font-size: 14px;
+    transform: rotate(180deg);
+  }
+  .rotation-panel-body {
+    font-family: var(--font-body);
+    font-size: 12px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  /* ── Gate section ── */
+  .gate-section {
+    margin-top: 8px;
+    padding-top: 20px;
+    border-top: 2px dashed var(--orange);
+  }
+  .gate-section-header {
+    font-family: var(--font-heading);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .gate-section-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--orange);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .gate-section-icon svg { width: 12px; height: 12px; fill: var(--orange); }
+  .gate-body {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--grey);
+    line-height: 1.5;
+  }
+
+  /* ── Cross-cutting dynamics section ── */
+  .crosscut-section { padding: 40px 60px 20px; width: 100%; }
+  .crosscut-header {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--grey-muted);
+    margin-bottom: 4px;
+  }
+  .crosscut-subhead {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--grey-muted);
+    font-style: italic;
+    margin-bottom: 18px;
+  }
+  .crosscut-tracks {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .crosscut-track {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 16px;
+    align-items: center;
+  }
+  .crosscut-label-row { display: flex; flex-direction: column; gap: 2px; }
+  .crosscut-name {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .crosscut-desc {
+    font-family: var(--font-body);
+    font-size: 11px;
+    color: var(--grey-muted);
+    font-style: italic;
+  }
+  .crosscut-bar {
+    height: 22px;
+    background: var(--orange);
+    opacity: 0.45;
+    border-radius: 3px;
+    position: relative;
+  }
+  .crosscut-bar-labels {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    margin-top: 6px;
+    font-family: var(--font-heading);
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: var(--grey-muted);
+    text-align: center;
+    padding-left: 236px;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    padding: 32px 60px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1800px;
+  }
+  .footer-left {
+    font-family: var(--font-heading);
+    font-size: 12px;
+    color: var(--grey-muted);
+    letter-spacing: 0.5px;
+  }
+  .footer-right {
+    font-family: var(--font-body);
+    font-size: 11px;
+    color: var(--grey-muted);
+  }
+  .footer-right a { color: var(--grey-muted); text-decoration: none; }
+  .footer-right a:hover { color: #333; }
+
+  /* ══════════════════════════════════════
+     MOBILE — vertical accordion (<900px)
+     ══════════════════════════════════════ */
+  @media (max-width: 900px) {
+    .header { padding: 28px 20px 16px; }
+    .header h1 { font-size: 26px; gap: 10px; }
+    .header h1 .logo { height: 1em; }
+    .header .subtitle { font-size: 14px; margin-top: 6px; }
+    .header .desc { font-size: 13px; margin-top: 12px; }
+
+    .pathway-wrap { padding: 16px 20px 0; }
+    .pathway { flex-direction: column; gap: 6px; }
+
+    .layer { flex: none; min-width: 100%; width: 100%; cursor: pointer; transition: none; overflow: visible; }
+    .layer.expanded { min-width: 100%; }
+    .layer-inner { border-radius: 12px; overflow: visible; }
+
+    .layer:not(.expanded) .layer-collapsed-label {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 16px 20px;
+      height: auto;
+      min-height: 54px;
+      gap: 12px;
+    }
+    .collapsed-number { writing-mode: horizontal-tb; text-orientation: initial; font-size: 11px; }
+    .collapsed-title { writing-mode: horizontal-tb; text-orientation: initial; font-size: 15px; }
+
+    .layer-expanded-content { padding: 20px 20px 18px; }
+    .layer-title { font-size: 19px; }
+
+    .crosscut-section { padding: 28px 20px 16px; }
+    .crosscut-track {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+    .crosscut-name { font-size: 12px; }
+    .crosscut-bar-labels {
+      padding-left: 0;
+      font-size: 9px;
+    }
+
+    .footer {
+      padding: 24px 20px 32px;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    .footer-left { font-size: 11px; }
+    .footer-right { font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <h1><a href="https://aieutics.com" target="_blank"><img class="logo" src="aieutics_transparentbg_logo.svg" alt="Aieutics"></a>Critical Path <span>Layers</span></h1>
+  <div class="subtitle">A strategy framework for decisions taken under speed and uncertainty.</div>
+  <div class="desc">Five sequenced acts of diagnostic work. Each layer feeds the next. Each gate must clear before downstream work converts. Click a layer to expand it.</div>
+  <a class="cta-link" href="https://aieutics.com/the-framework" target="_blank">Read more about the framework <span class="arrow">→</span></a>
+</div>
+
+<!-- Main Pathway -->
+<div class="pathway-wrap">
+  <div class="pathway">
+
+    <!-- Layer 1 -->
+    <div class="layer" data-layer="1">
+      <div class="layer-inner">
+        <div class="layer-collapsed-label">
+          <span class="collapsed-number">L1</span>
+          <span class="collapsed-title">Situational awareness</span>
+        </div>
+        <div class="layer-expanded-content">
+          <div class="layer-number">Layer 1</div>
+          <div class="layer-title">Situational awareness</div>
+          <div class="layer-mantra">Read the terrain.</div>
+          <div class="produces">
+            <span class="produces-label">What you produce</span>
+            <ul class="produces-list">
+              <li>A current map of what has moved in the last quarter</li>
+              <li>The dependencies you have not audited</li>
+              <li>One assumption you used to hold that is no longer true</li>
+            </ul>
+          </div>
+          <div class="gate-section">
+            <div class="gate-section-header">
+              <span class="gate-section-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>
+              Gate L1 → L2
+            </div>
+            <div class="gate-body">You can name three things that have changed since the last strategy review, the dependency each one breaks, and one assumption you used to hold that is no longer true.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Layer 2 -->
+    <div class="layer" data-layer="2">
+      <div class="layer-inner">
+        <div class="layer-collapsed-label">
+          <span class="collapsed-number">L2</span>
+          <span class="collapsed-title">Dependency map</span>
+        </div>
+        <div class="layer-expanded-content">
+          <div class="layer-number">Layer 2</div>
+          <div class="layer-title">Dependency map</div>
+          <div class="layer-mantra">What depends on what.</div>
+          <div class="produces">
+            <span class="produces-label">What you produce</span>
+            <ul class="produces-list">
+              <li>A dependency graph in fewer than twenty nodes</li>
+              <li>Upstream, downstream, and lateral dependencies named</li>
+              <li>The translation from domain to dependency (the sales problem is a Layer X problem)</li>
+            </ul>
+          </div>
+          <div class="gate-section">
+            <div class="gate-section-header">
+              <span class="gate-section-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>
+              Gate L2 → L3
+            </div>
+            <div class="gate-body">Another competent operator can recognise the graph you have drawn.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Layer 3 (default expanded) -->
+    <div class="layer expanded" data-layer="3">
+      <div class="layer-inner">
+        <div class="layer-collapsed-label">
+          <span class="collapsed-number">L3</span>
+          <span class="collapsed-title">Binding constraint</span>
+        </div>
+        <div class="layer-expanded-content">
+          <div class="layer-number">Layer 3</div>
+          <div class="layer-title">Binding constraint</div>
+          <div class="layer-mantra">Which dependency is load-bearing right now.</div>
+          <div class="produces">
+            <span class="produces-label">What you produce</span>
+            <ul class="produces-list">
+              <li>The binding constraint, named in one sentence</li>
+              <li>The diagnostic that surfaced it, documented</li>
+              <li>The cost of being wrong, explicitly accepted</li>
+            </ul>
+          </div>
+          <div class="instruments-block">
+            <span class="instruments-label">Run an instrument to triangulate</span>
+            <div class="instruments-chips">
+              <a class="instrument-chip" href="https://icp-clarity-diagnostic.vercel.app" target="_blank">ICP Clarity</a>
+              <a class="instrument-chip" href="https://github.com/Aieutics-com/internal-market-clarity-diagnostic" target="_blank">Internal Market Clarity</a>
+              <a class="instrument-chip" href="https://github.com/Aieutics-com/value-proposition-articulator" target="_blank">Value Proposition Articulator</a>
+              <a class="instrument-chip" href="https://github.com/Aieutics-com/pricing-coherence-diagnostic" target="_blank">Pricing Coherence</a>
+              <a class="instrument-chip" href="https://poc-diagnostic.vercel.app" target="_blank">POC Lifecycle</a>
+              <span class="instrument-chip coming-soon" title="Repository to come; contact for early access">Sales Readiness (early access)</span>
+              <a class="instrument-chip" href="https://moats-diagnostic.vercel.app" target="_blank">Moats</a>
+              <a class="instrument-chip" href="https://github.com/Aieutics-com/permanence-diagnostic" target="_blank">Permanence</a>
+              <a class="instrument-chip" href="https://github.com/Aieutics-com/repeatability-diagnostic" target="_blank">Repeatability</a>
+              <a class="instrument-chip" href="https://github.com/Aieutics-com/ai-classification" target="_blank">AI Classification</a>
+              <a class="instrument-chip" href="https://corporate-innovation-diagnostic.vercel.app" target="_blank">Corporate Innovation</a>
+              <span class="instrument-chip coming-soon" title="In development">Situational Read (in development)</span>
+              <span class="instrument-chip coming-soon" title="In development">Trigger Monitor (in development)</span>
+            </div>
+          </div>
+          <div class="gate-section">
+            <div class="gate-section-header">
+              <span class="gate-section-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>
+              Gate L3 → L4
+            </div>
+            <div class="gate-body">The binding constraint is named in a single sentence, the diagnostic that surfaced it is documented, and the cost of being wrong is explicitly accepted.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Layer 4 -->
+    <div class="layer" data-layer="4">
+      <div class="layer-inner">
+        <div class="layer-collapsed-label">
+          <span class="collapsed-number">L4</span>
+          <span class="collapsed-title">Gated sequence</span>
+        </div>
+        <div class="layer-expanded-content">
+          <div class="layer-number">Layer 4</div>
+          <div class="layer-title">Gated sequence</div>
+          <div class="layer-mantra">Order of work plus gates.</div>
+          <div class="produces">
+            <span class="produces-label">What you produce</span>
+            <ul class="produces-list">
+              <li>The sequence of work that resolves the binding constraint</li>
+              <li>Gate criteria for each step, testable by someone who is not the operator</li>
+              <li>An explicit pause on downstream work until the upstream gate clears</li>
+            </ul>
+          </div>
+          <div class="gate-section">
+            <div class="gate-section-header">
+              <span class="gate-section-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>
+              Gate L4 → L5
+            </div>
+            <div class="gate-body">Sequence is named, each criterion is testable by someone who is not the operator, and the team has explicitly accepted that downstream work waits.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Layer 5 -->
+    <div class="layer" data-layer="5">
+      <div class="layer-inner">
+        <div class="layer-collapsed-label">
+          <span class="collapsed-number">L5</span>
+          <span class="collapsed-title">Constraint rotation</span>
+        </div>
+        <div class="layer-expanded-content">
+          <div class="layer-number">Layer 5</div>
+          <div class="layer-title">Constraint rotation</div>
+          <div class="layer-mantra">Watch the triggers.</div>
+          <div class="produces">
+            <span class="produces-label">What you produce</span>
+            <ul class="produces-list">
+              <li>A written set of trigger conditions, each tied to a Layer 1 assumption</li>
+              <li>A named owner who watches them</li>
+              <li>A re-entry plan for Layer 1 when a trigger fires</li>
+            </ul>
+          </div>
+          <div class="rotation-panel">
+            <div class="rotation-panel-header"><span class="loop-icon">↻</span> When a trigger fires</div>
+            <div class="rotation-panel-body">Return to Layer 1. Re-read the terrain. The binding constraint you locked at L3 may have moved. This is the loop most frameworks omit. Without it the stack ossifies.</div>
+          </div>
+          <div class="gate-section">
+            <div class="gate-section-header">
+              <span class="gate-section-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>
+              Gate L5 (loop)
+            </div>
+            <div class="gate-body">The team holds a set of trigger conditions, each tied to a specific assumption from Layer 1, that when observed force a return to Layer 1. The conditions are written down. Someone is responsible for watching them.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Cross-cutting dynamics -->
+  <div class="crosscut-section">
+    <div class="crosscut-header">Cross-cutting dynamics</div>
+    <div class="crosscut-subhead">Independent of the layer you are working on, each of these can derail the work at any time.</div>
+    <div class="crosscut-tracks">
+      <div class="crosscut-track">
+        <div class="crosscut-label-row">
+          <div class="crosscut-name">Founder or owner bottleneck</div>
+          <div class="crosscut-desc">Personal bandwidth, identity, or decision-making becomes the binding constraint.</div>
+        </div>
+        <div class="crosscut-bar"></div>
+      </div>
+      <div class="crosscut-track">
+        <div class="crosscut-label-row">
+          <div class="crosscut-name">Organisational immune response</div>
+          <div class="crosscut-desc">The system protects its current state by neutralising work that does not fit the existing performance engine.</div>
+        </div>
+        <div class="crosscut-bar"></div>
+      </div>
+      <div class="crosscut-track">
+        <div class="crosscut-label-row">
+          <div class="crosscut-name">Downstream gravity</div>
+          <div class="crosscut-desc">The pull toward layers further down the chain when the upstream gate is unresolved. The most common failure mode.</div>
+        </div>
+        <div class="crosscut-bar"></div>
+      </div>
+      <div class="crosscut-track">
+        <div class="crosscut-label-row">
+          <div class="crosscut-name">Narrative drift</div>
+          <div class="crosscut-desc">The story diverges from the work. Once they diverge, the work loses internal legitimacy regardless of its merit.</div>
+        </div>
+        <div class="crosscut-bar"></div>
+      </div>
+    </div>
+    <div class="crosscut-bar-labels">
+      <span>L1</span><span>L2</span><span>L3</span><span>L4</span><span>L5</span>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <div class="footer-left">Critical Path Layers · Aieutics</div>
+  <div class="footer-right">© Aieutics · <a href="https://aieutics.com" target="_blank">aieutics.com</a></div>
+</div>
+
+<script>
+  document.querySelectorAll('.layer').forEach(layer => {
+    layer.addEventListener('click', () => {
+      if (layer.classList.contains('expanded')) return;
+      document.querySelectorAll('.layer.expanded').forEach(l => l.classList.remove('expanded'));
+      layer.classList.add('expanded');
+    });
+  });
+</script>
+
+</body>
+</html>
