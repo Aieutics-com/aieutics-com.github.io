@@ -388,6 +388,19 @@
     border: 1px solid rgba(255, 95, 31, 0.2);
   }
 
+  .badge-layer {
+    font-family: var(--font-heading);
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    white-space: nowrap;
+  }
+
   .card-visualisation:hover {
     border-color: rgba(255, 95, 31, 0.4);
     box-shadow: 0 8px 32px rgba(255, 95, 31, 0.12);
@@ -616,7 +629,10 @@
             <p>18 binary questions across 5 dimensions. Identify where your innovation initiative is structurally at risk &mdash; before it stalls.</p>
           </div>
           <div class="card-meta">
-            <span class="badge badge-diagnostic">Diagnostic</span>
+            <div style="display: flex; gap: 6px; align-items: center;">
+              <span class="badge badge-diagnostic">Diagnostic</span>
+              <span class="badge badge-layer">L3</span>
+            </div>
             <span class="flip-hint">Hover to learn more</span>
             <span class="flip-hint flip-hint-mobile">Tap to learn more</span>
           </div>
@@ -638,7 +654,10 @@
             <p>18 binary questions across 5 dimensions. Assess where your proof-of-concept stands and identify what's at risk before it costs you.</p>
           </div>
           <div class="card-meta">
-            <span class="badge badge-diagnostic">Diagnostic</span>
+            <div style="display: flex; gap: 6px; align-items: center;">
+              <span class="badge badge-diagnostic">Diagnostic</span>
+              <span class="badge badge-layer">L3</span>
+            </div>
             <span class="flip-hint">Hover to learn more</span>
             <span class="flip-hint flip-hint-mobile">Tap to learn more</span>
           </div>
@@ -662,7 +681,7 @@
           <div class="card-meta">
             <div style="display: flex; gap: 6px; align-items: center;">
               <span class="badge badge-diagnostic">Diagnostic</span>
-              <span class="badge badge-framework">Beta</span>
+              <span class="badge badge-layer">L3</span>
             </div>
             <span class="flip-hint">Hover to learn more</span>
             <span class="flip-hint flip-hint-mobile">Tap to learn more</span>
@@ -688,6 +707,7 @@
             <div style="display: flex; gap: 6px; align-items: center;">
               <span class="badge badge-diagnostic">Diagnostic</span>
               <span class="badge badge-framework">New</span>
+              <span class="badge badge-layer">L3</span>
             </div>
             <span class="flip-hint">Hover to learn more</span>
             <span class="flip-hint flip-hint-mobile">Tap to learn more</span>
@@ -709,7 +729,7 @@
   <div class="section-divider"><hr></div>
 
   <div class="section-label fade-up fade-up-6" style="margin-top: 24px;">
-    <h2><span class="label-accent-teal">Interactive Tools</span> &mdash; Request Access</h2>
+    <h2><span class="label-accent-teal">Depth Instruments</span> &mdash; Client Access</h2>
   </div>
 
   <div class="card-grid" style="padding-bottom: 0;">
@@ -720,7 +740,10 @@
         <p>18 binary questions across 5 dimensions. Test whether your buyer profile is specific enough to sell, validated enough to trust, and connected enough to convert.</p>
       </div>
       <div class="card-meta">
-        <span class="badge badge-beta">Client Access</span>
+        <div style="display: flex; gap: 6px; align-items: center;">
+          <span class="badge badge-beta">Client Access</span>
+          <span class="badge badge-layer">L3</span>
+        </div>
         <span class="card-arrow">&rarr;</span>
       </div>
     </a>
@@ -731,7 +754,10 @@
         <p>20 binary questions across 5 dimensions. Test whether your value proposition is clear enough to repeat, differentiated enough to win, and aligned to the value type your buyer decides on.</p>
       </div>
       <div class="card-meta">
-        <span class="badge badge-beta">Client Access</span>
+        <div style="display: flex; gap: 6px; align-items: center;">
+          <span class="badge badge-beta">Client Access</span>
+          <span class="badge badge-layer">L3</span>
+        </div>
         <span class="card-arrow">&rarr;</span>
       </div>
     </a>
@@ -742,7 +768,10 @@
         <p>18 binary questions across 5 dimensions. Assess whether your pricing is grounded in buyer reality &mdash; willingness to pay, model fit, budget alignment, and unit economics.</p>
       </div>
       <div class="card-meta">
-        <span class="badge badge-beta">Client Access</span>
+        <div style="display: flex; gap: 6px; align-items: center;">
+          <span class="badge badge-beta">Client Access</span>
+          <span class="badge badge-layer">L3</span>
+        </div>
         <span class="card-arrow">&rarr;</span>
       </div>
     </a>
@@ -753,7 +782,10 @@
         <p>18 binary questions across 5 dimensions. Test whether your corporate innovation initiative has an internal market &mdash; named adopters, a validated case for change, and mapped adoption costs &mdash; before you design a pilot.</p>
       </div>
       <div class="card-meta">
-        <span class="badge badge-beta">Client Access</span>
+        <div style="display: flex; gap: 6px; align-items: center;">
+          <span class="badge badge-beta">Client Access</span>
+          <span class="badge badge-layer">L3</span>
+        </div>
         <span class="card-arrow">&rarr;</span>
       </div>
     </a>
@@ -764,7 +796,10 @@
         <p>12 binary questions across 4 dimensions. Test whether your innovation has moved from temporary project status to permanent operational reality &mdash; budget, metrics, personnel, and mechanism.</p>
       </div>
       <div class="card-meta">
-        <span class="badge badge-beta">Client Access</span>
+        <div style="display: flex; gap: 6px; align-items: center;">
+          <span class="badge badge-beta">Client Access</span>
+          <span class="badge badge-layer">L3 &rarr; L4</span>
+        </div>
         <span class="card-arrow">&rarr;</span>
       </div>
     </a>
@@ -775,7 +810,10 @@
         <p>10 binary questions across 4 dimensions. Test whether your process works when the key person is not there &mdash; from foundational documentation through validation, commercial execution, and operational handoff.</p>
       </div>
       <div class="card-meta">
-        <span class="badge badge-beta">Client Access</span>
+        <div style="display: flex; gap: 6px; align-items: center;">
+          <span class="badge badge-beta">Client Access</span>
+          <span class="badge badge-layer">L3 &rarr; L4</span>
+        </div>
         <span class="card-arrow">&rarr;</span>
       </div>
     </a>
@@ -845,7 +883,10 @@
         <p>How a $126 per barrel oil spike reshapes the global economy through eight compounding transmission channels. An interactive network map of the macroeconomic ramifications of the February 2026 conflict.</p>
       </div>
       <div class="card-meta">
-        <span class="badge badge-visualisation">Visualisation</span>
+        <div style="display: flex; gap: 6px; align-items: center;">
+          <span class="badge badge-visualisation">Visualisation</span>
+          <span class="badge badge-layer">L5</span>
+        </div>
         <span class="card-arrow">&rarr;</span>
       </div>
     </a>
