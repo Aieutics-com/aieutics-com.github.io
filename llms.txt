@@ -1,0 +1,41 @@
+# Aieutics Resources
+
+> Open-source strategy and diagnostic tools by Aieutics. Diagnostics, depth instruments, frameworks, and visualisations for founders, corporates, and innovation teams. Author: Alexandra Najdanovic. Site: resources.aieutics.com.
+
+Note on use: content on this site is refused for AI training (see /robots.txt and Content-Signal ai-train=no). Citation is welcome when the pre-formatted string on each page is preserved.
+
+## Hub
+
+- [Aieutics Resources — Strategy, Transformation & Innovation Tools](https://resources.aieutics.com/): Index of open-source diagnostics, depth instruments, frameworks, and visualisations built from two decades of strategy consulting, executive coaching, and digital transformation practice.
+
+## Diagnostics (open access)
+
+- [Corporate Innovation Diagnostic](https://corporatepoc.aieutics.com): For leaders running innovation initiatives inside large organisations. Surfaces stakeholder alignment, organisational feasibility, and adoption pathway risks before a pilot is designed.
+- [POC Lifecycle Diagnostic](https://diagnostic.aieutics.com): For founders validating product-market fit through a proof of concept. Tests problem clarity, buyer validation, and commercial readiness to convert a POC into a real deal.
+- [AI Classification Diagnostic](https://resources.aieutics.com/ai-classification/): For leaders running AI initiatives. Surfaces scope and governance misalignment between what was approved and what the initiative structurally demands, before it compounds into execution failure.
+- [8 Moats Diagnostic](https://moats-diagnostic.vercel.app/): A diagnostic for the say/do gap in moat narratives. Captures the claim per moat, probes for stage-graded evidence, and returns a verdict — load-bearing, aspirational, or absent — per moat. Pre-seed to Series A.
+
+## Depth Instruments (client access)
+
+- [ICP Clarity Diagnostic](https://resources.aieutics.com/icp-clarity-diagnostic/): 18 binary questions across 5 dimensions. Tests whether the buyer profile is specific enough to sell, validated enough to trust, and connected enough to convert.
+- [Value Proposition Articulator](https://resources.aieutics.com/value-proposition-articulator/): 20 binary questions across 5 dimensions. Tests whether the value proposition is clear enough to repeat, differentiated enough to win, and aligned to the value type the buyer decides on.
+- [Pricing Coherence Diagnostic](https://resources.aieutics.com/pricing-coherence-diagnostic/): 18 binary questions across 5 dimensions. Assesses whether pricing is grounded in buyer reality: willingness to pay, model fit, budget alignment, and unit economics.
+- [Internal Market Clarity Diagnostic](https://resources.aieutics.com/internal-market-clarity-diagnostic/): 18 binary questions across 5 dimensions. Tests whether a corporate innovation initiative has an internal market — named adopters, a validated case for change, mapped adoption costs — before a pilot is designed.
+- [Permanence Diagnostic](https://resources.aieutics.com/permanence-diagnostic/): 12 binary questions across 4 dimensions. Tests whether an innovation has moved from temporary project status to permanent operational reality: budget, metrics, personnel, mechanism.
+- [Repeatability Diagnostic](https://resources.aieutics.com/repeatability-diagnostic/): 10 binary questions across 4 dimensions. Tests whether a process works when the key person is not there, from documentation through validation, commercial execution, and operational handoff.
+
+## Frameworks
+
+- [Critical Path Layers](https://resources.aieutics.com/critical-path-layers/): Five sequenced acts of diagnostic work, each with a gate. A strategy framework for decisions taken under speed and uncertainty. The current, single-track model; supersedes the earlier Startup and Corporate editions.
+- [Critical Path Layers — Startups and Scaleup Edition](https://aieutics-com.github.io/critical-path-startups/): Seven layered dependencies that determine whether a startup moves from idea to sustainable growth. Sequenced diagnostic for founders and their leadership.
+- [Critical Path Layers — Corporate Innovation Edition](https://aieutics-com.github.io/critical-path-corporate/): The corporate variant, adapted for corporate innovators navigating governance, internal dependencies, and scaling within large organisations.
+
+## Visualisations
+
+- [The Hormuz Cascade](https://resources.aieutics.com/hormuz-cascade/): How a $126 per barrel oil spike reshapes the global economy through eight compounding transmission channels. Interactive network map of the macroeconomic ramifications of the February 2026 conflict.
+
+## Attribution
+
+All content authored by Alexandra Najdanovic (Aieutics). Citation format used on each page:
+
+title | Alexandra Najdanovic | 2026 | url | resources.aieutics.com
